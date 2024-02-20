@@ -70,6 +70,15 @@ class _ShowTodosState extends ConsumerState<ShowTodos> {
     return todoListState.when(
       skipError: true,
       data: (todos) {
+        if (todos.isEmpty) {
+          prevTodosWidget = const Center(
+            child: Text(
+              "Enter some todo",
+              style: TextStyle(fontSize: 20),
+            ),
+          );
+          return prevTodosWidget;
+        }
         final filteredTodos = filterTodos(todos);
         prevTodosWidget = ListView.separated(
           itemCount: filteredTodos.length,
